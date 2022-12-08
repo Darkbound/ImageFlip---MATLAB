@@ -1,32 +1,33 @@
 function imflip(x)
-IMAGE=imread(x); %loading the image
+IMAGE=imread(x); % loading the image
 
-A=IMAGE(:,:,1);   % breaking the 3d matrix into 3x2d matrices
-B=IMAGE(:,:,2);   %
-C=IMAGE(:,:,3);   %
+A=IMAGE(:, :, 1);   % breaking the 3d matrix into 3x2d matrices
+B=IMAGE(:, :, 2);   %
+C=IMAGE(:, :, 3);   %
 
-%initializing variables
-[r1, r2]=deal(size(A,1));
-[c1, c2]=deal(size(A,2));
-[Aremain, Bremain, Cremain]=deal(zeros(size(A)));
+% initializing variables
+[r1, r2] = deal(size(A, 1));
+[c1, c2] = deal(size(A, 2));
+[Aremain, Bremain, Cremain] = deal(zeros(size(A)));
 
-%if the rows or columns number of the image divided by 100 has a remainder
-if rem(size(A,1), 100)~=0 || rem(size(A,2), 100)~=0
+% if the rows or columns number of the image divided by 100 has a remainder
+if rem(size(A, 1), 100) ~= 0 || rem(size(A, 2), 100) ~= 0
     
     %initializating variables
-    [A1remain, A2remain, B1remain, B2remain, C1remain, C2remain]=deal(zeros(size(A)));
-    r=floor(r2/100-1); %rows
-    c=floor(c2/100-1); %columns
-    %recalculating rows and columns number without the leftovers
-    r2=size(A,1)-rem(size(A,1), 100);
-    c2=size(A,2)-rem(size(A,2), 100);
+    [A1remain, A2remain, B1remain, B2remain, C1remain, C2remain] = deal(zeros(size(A)));
+    r = floor(r2 / 100 - 1); % rows
+    c = floor(c2 / 100 - 1); % columns
     
-    %leftovers from A
-    for n=0:r %flipping rows
-        A1remain(1+100*n:50+100*n,c1-rem(c1, 100):c1)=A(51+100*n:100+100*n,c1-rem(c1,100):c1);
-        A1remain(51+100*n:100+100*n,c1-rem(c1, 100):c1)=A(1+100*n:50+100*n,c1-rem(c1,100):c1);
+    % recalculating rows and columns number without the leftovers
+    r2 = size(A, 1) - rem(size(A, 1), 100);
+    c2 = size(A, 2) - rem(size(A, 2), 100);
+    
+    % leftovers from A
+    for n = 0:r % flipping rows
+        A1remain(1 + 100 * n:50 + 100 * n, c1 - rem(c1, 100):c1) = A(51 + 100 * n:100 + 100*n, c1 - rem(c1, 100):c1);
+        A1remain(51 + 100 * n:100 + 100 * n, c1 - rem(c1, 100):c1) = A(1 + 100*n:50 + 100*n, c1 - rem(c1, 100):c1);
     end 
-    for n=0:c %flipping columns
+    for n = 0 : c % flipping columns
         A2remain(r1-rem(r1,100):r1, 1+100*n:50+100*n)=A(r1-rem(r1,100):r1, 51+100*n:100+100*n);
         A2remain(r1-rem(r1,100):r1, 51+100*n:100+100*n)=A(r1-rem(r1,100):r1, 1+100*n:50+100*n);
     end 
